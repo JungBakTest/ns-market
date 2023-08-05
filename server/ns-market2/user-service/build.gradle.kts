@@ -14,6 +14,5 @@ dependencies {
     implementation("io.r2dbc:r2dbc-pool")
     runtimeOnly("mysql:mysql-connector-java")
 
-
 }
 

@@ -9,9 +9,7 @@ plugins {
 
     kotlin("kapt") version "1.6.21"
 }
-//kapt {
-//    correctErrorTypes = true
-//}
+
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 
@@ -21,7 +19,7 @@ repositories {
 
 
 allprojects{
-    group = "com.market"
+    group = "com.fastcampus"
     version = "0.0.1-SNAPSHOT"
 
     repositories {
@@ -42,27 +40,13 @@ subprojects {
         // Kotlin 로깅
         implementation("io.github.microutils:kotlin-logging:1.12.5")
 
-
-
         // Kotlin
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-
-
-        //springfox
-//        implementation("io.springfox:springfox-swagger-ui:3.0.0")
-//        implementation("io.springfox:springfox-boot-starter:3.0.0")
-
-        //SpringDoc
-        implementation("org.springdoc:springdoc-openapi-ui:1.7.0")
-        implementation("org.springdoc:springdoc-openapi-webflux-ui:1.7.0")
-//        implementation("org.springdoc:springdoc-openapi-ui:1.6.9")
-//        implementation("org.springdoc:springdoc-openapi-kotlin:1.6.9")
         //. H2DB
 //        runtimeOnly("com.h2database:h2")
-
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
