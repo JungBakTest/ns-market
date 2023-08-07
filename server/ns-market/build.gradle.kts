@@ -3,15 +3,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.7.11" apply false
     id("io.spring.dependency-management") version "1.0.15.RELEASE"
+//    id("application")
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
 
     kotlin("kapt") version "1.6.21"
 }
-//kapt {
-//    correctErrorTypes = true
-//}
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 
@@ -22,7 +20,7 @@ repositories {
 
 allprojects{
     group = "com.market"
-    version = "0.0.1-SNAPSHOT"
+    version = "0.0.1-SNAPSHOT2"
 
     repositories {
         mavenCentral()
@@ -34,6 +32,9 @@ subprojects {
     apply(plugin = "kotlin-spring")
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "kotlin-kapt")
+
+
+//    apply(plugin = "application")
 
     dependencies {
         // JWT 인증
@@ -54,7 +55,7 @@ subprojects {
         //springfox
 //        implementation("io.springfox:springfox-swagger-ui:3.0.0")
 //        implementation("io.springfox:springfox-boot-starter:3.0.0")
-
+        implementation(kotlin("stdlib-jdk8"))
         //SpringDoc
         implementation("org.springdoc:springdoc-openapi-ui:1.7.0")
         implementation("org.springdoc:springdoc-openapi-webflux-ui:1.7.0")
@@ -87,3 +88,18 @@ subprojects {
 
 
 }
+
+
+tasks.withType<Jar>{
+    manifest{
+        attributes["Main-Class"] = "com.market.NsMarketUserServiceApplication"
+    }
+}
+
+//tasks.register("prepareKotlinBuildScriptModel"){}
+
+//project("user-service"){
+//    jar{
+//
+//    }
+//}
