@@ -66,6 +66,23 @@ subprojects {
 
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+
+        implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+        implementation("org.springframework.boot:spring-boot-starter-webflux")
+
+        implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
+        kapt("org.springframework.boot:spring-boot-configuration-processor")
+
+        implementation("at.favre.lib:bcrypt:0.9.0")
+//    implementation(kotlin("stdlib-jdk8"))
+//    runtimeOnly("io.r2dbc:r2dbc-h2")
+        implementation("dev.miku:r2dbc-mysql:0.8.1.RELEASE")
+        implementation("io.r2dbc:r2dbc-pool")
+        runtimeOnly("com.mysql:mysql-connector-j")
+        implementation(kotlin("stdlib-jdk8"))
     }
 
     dependencyManagement{
@@ -88,30 +105,3 @@ subprojects {
 
 
 }
-
-//tasks {
-//    // JAR 파일을 빌드하기 위한 태스크 정의
-//    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-//        kotlinOptions.jvmTarget = "1.6" // JVM 타겟 버전을 1.8로 설정
-//    }
-//    jar {
-//        enabled = true
-//        manifest {
-//            attributes["Main-Class"] = "com.market.NsMarketUserServiceApplication" // 메인 클래스 이름으로 변경 (패키지명.클래스명Kt 형태)
-//        }
-//    }
-//}
-////
-//tasks.withType<Jar>{
-//    manifest{
-//        attributes["Main-Class"] = "com.market.NsMarketUserServiceApplication"
-//    }
-//}
-
-//tasks.register("prepareKotlinBuildScriptModel"){}
-
-//project("user-service"){
-//    jar{
-//
-//    }
-//}

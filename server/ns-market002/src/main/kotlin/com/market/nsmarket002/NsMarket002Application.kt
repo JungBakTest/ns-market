@@ -1,17 +1,13 @@
-package com.market
+package com.market.nsmarket002
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
-import org.springframework.context.annotation.ComponentScan
-
-
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-class NsMarketUserServiceApplication
+class NsMarket002Application
 
 fun main(args: Array<String>) {
-    runApplication<NsMarketUserServiceApplication>(*args)
+	runApplication<NsMarket002Application>(*args)
 }

@@ -1,0 +1,87 @@
+server:
+  port: 8080
+
+jwt:
+  issuer: jara
+  subject: auth
+  expires-time: 3600
+  secret: my-secret
+
+
+#springdoc:
+#  swagger-ui:
+#    path: /swagger-ui.html
+#    operations-sorter: method
+#  api-docs:
+#    path: /api-docs
+
+#springdoc:
+#  api-docs:
+#    path: /api-docs
+
+spring:
+  r2dbc:
+    url: r2dbc:mysql://study-database.cvu8f5neikqk.ap-northeast-2.rds.amazonaws.com:3306/study_db
+    username: root
+    password: test1234
+
+
+springdoc:
+  packages-to-scan: com.colabear754.springdoc_example.controllers
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    path: /
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: alpha
+####################################################
+# local mysql connect ??
+
+#spring:
+#  r2dbc:
+#    url: r2dbc:mysql://localhost:3306/db_example
+#    username: root
+#    password: root
+#
+
+
+
+
+
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/db_example?useSSL=false
+#    username: root
+#    password: root
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    database: mysql
+#    show-sql: true
+#    hibernate:
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+
+
+
+
+
+
+#  jpa:
+#    database: mysql
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    properties:
+#      hibernate:
+#        storage_engine: innodb
+#        format_sql: true
+#        use_sql_comments: true
+#    hibernate:
+#      ddl-auto: none
+#    open-in-view: false
+#    show_sql: true
+#
+#  logging.level:
+
+#    org.hibernate.SQL: debug
