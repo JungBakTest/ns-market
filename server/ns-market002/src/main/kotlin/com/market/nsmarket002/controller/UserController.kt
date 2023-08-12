@@ -4,6 +4,7 @@ import com.market.nsmarket002.model.*
 import com.market.nsmarket002.service.UserService
 import io.swagger.v3.oas.annotations.Hidden
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.core.io.ClassPathResource
@@ -13,15 +14,15 @@ import org.springframework.http.codec.multipart.FilePart
 import org.springframework.web.bind.annotation.*
 import java.io.File
 
-@Tag(name = "User Service API", description = "User Service Api입니다.")
 @RestController
 @RequestMapping("/api/users")
+@Tag(name = "User Service API", description = "User Service Api입니다.")
 class UserController (
     private val userService: UserService,
 ){
-    @Operation(summary = "SignUp(회원가입) 기능입니다.", description = "회원가입 데이터를 가져와서 저장, 잘못된 데이터이면 오류를 반환합니다.")
-//    @Parameter(name = "str", description = "2번 반복할 문자열")
+//    @Parameter(name = "SignUpRequest", description = "2번 반복할 문자열")
     @PostMapping("/signup")
+    @Operation(summary = "SignUp(회원가입) 기능입니다.", description = "회원가입 데이터를 가져와서 저장, 잘못된 데이터이면 오류를 반환합니다.")
     suspend fun signup(@RequestBody request: SignUpRequest){
         userService.signUp(request)
     }
@@ -32,6 +33,7 @@ class UserController (
     }
 
     @Operation(summary = "logOut(로그아웃) 기능입니다.", description = "로그아웃합니다.")
+    @Parameter(name = "Authorization", description = "Token 값")
     @DeleteMapping("/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     suspend fun logout(@AuthToken token: String){
@@ -76,7 +78,6 @@ class UserController (
         userService.edit(token, request.username, filename)
     }
 
-    @Hidden
     @GetMapping("/test1")
     suspend fun test1() : String{
         return "it's ok"
