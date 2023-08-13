@@ -2,11 +2,34 @@ server:
   port: 8080
 
 
+auth:
+  url: http//localhost:80/api/users/me
+
+
+#spring:
+#  r2dbc:
+#    url: r2dbc:mysql://study-database.cvu8f5neikqk.ap-northeast-2.rds.amazonaws.com:3306/study_db
+#    username: root
+#    password: test1234
+
 spring:
-  r2dbc:
-    url: r2dbc:mysql://study-database.cvu8f5neikqk.ap-northeast-2.rds.amazonaws.com:3306/study_db
+  datasource:
+    url: jdbc:mysql://study-database.cvu8f5neikqk.ap-northeast-2.rds.amazonaws.com:3306/study_db?serverTimezone=UTC
     username: root
     password: test1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    database: mysql
+#    show-sql: true
+#    hibernate:
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#
 
 
 springdoc:
