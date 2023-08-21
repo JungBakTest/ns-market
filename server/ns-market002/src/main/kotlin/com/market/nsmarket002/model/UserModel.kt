@@ -20,7 +20,7 @@ data class MeResponse(
         operator fun invoke(user: User) = with(user){
             MeResponse(
                 id = id!!,
-                profileUrl = if (profileUrl.isNullOrEmpty()) null else "http://localhost:8080/images/$profileUrl",
+                profileUrl = if (profileUrl.isNullOrEmpty()) null else "http://localhost/images/$profileUrl",
                 username = username,
                 email = email,
                 createdAt = createdAt,

@@ -13,13 +13,29 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.awaitBody
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport
 
 @Configuration
 class WebConfig(
-    private val authUserHanderArgumentResolver: AuthUserHandlerArgumentResolver
+    private val authUserHandlerArgumentResolver: AuthUserHandlerArgumentResolver
 ) : WebMvcConfigurationSupport(){
+    override fun addArgumentResolvers(argumentResolvers: MutableList<HandlerMethodArgumentResolver>) {
+        argumentResolvers.apply {
+            add(authUserHandlerArgumentResolver)
+        }
+    }
 
+    //resources의 static디렉토림 templates 디렉토리에  정적리소스에들어갈려면 별도의 설정이 필요
+    override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
+        registry.addResourceHandler("/**")
+            .addResourceLocations(
+                "classpath:/META-INF/resources/",
+                "classpath:/resources/",
+                "classpath:/static/",
+                "classpath:/public/",
+            )
+    }
 }
 
 @Component

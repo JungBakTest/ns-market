@@ -34,10 +34,13 @@ class MarketBoard {
     val updateAt: LocalDateTime? = null
 
     @Column(name = "view_count")
-    val viewCont: Long = 0
+    val viewCount: Long = 0
 
     @Column
     val category : Long = 0
+
+    @Column
+    val price: Long = 0
 
     // No-arguments constructor
     constructor()

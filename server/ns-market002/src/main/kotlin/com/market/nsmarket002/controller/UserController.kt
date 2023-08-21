@@ -54,8 +54,7 @@ class UserController (
     }
 
 
-    @Operation(summary = "유저 정보를 수정하는 기능입니다.", description = "회원 데이터를 수정합니다 이미지 추가 기능 있습니다" +
-            "")
+    @Operation(summary = "유저 정보를 수정하는 기능입니다.", description = "회원 데이터를 수정합니다 이미지 추가 기능 있습니다")
     @PostMapping("/{id}", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     suspend fun edit(
         @PathVariable id:Long,

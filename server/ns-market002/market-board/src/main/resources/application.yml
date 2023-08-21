@@ -3,7 +3,7 @@ server:
 
 
 auth:
-  url: http//localhost:80/api/users/me
+  url: http://127.0.0.1/api/users/me
 
 
 #spring:
@@ -41,3 +41,6 @@ springdoc:
     disable-swagger-default-url: true
     display-request-duration: true
     operations-sorter: alpha
+
+upload:
+  path: ./uploads/
