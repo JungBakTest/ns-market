@@ -8,3 +8,7 @@ data class BoardCreatedRequest(
     val category: Long,
     val price: Long,
 )
+
+data class BoardCreateResponse(
+    val userId: Long,
+)

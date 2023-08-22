@@ -18,5 +18,8 @@ class ImgStorage(
     val imgUrl: String = "",
 
     @Column(name = "user_id")
-    val userId: Long? = null
+    val userId: Long? = null,
+
+    @Column(name = "board_id")
+    val boardId: Long? = null,
 )

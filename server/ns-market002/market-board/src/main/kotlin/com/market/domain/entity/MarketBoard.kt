@@ -9,42 +9,41 @@ import javax.persistence.*
 
 @Table(name = "marketboard")
 @Entity
-class MarketBoard {
+class MarketBoard (
 
     @Id
     @Column(name = "board_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val boardId: Long? = null
+    var boardId: Long? = null,
 
     @Column(name = "user_id")
-    val userId: Long = 0
+    var userId: Long = 0,
 
     @Column
-    val title: String = ""
+    var title: String = "",
 
     @Column
-    val content: String = ""
+    var content: String = "",
 
     @CreatedDate
     @Column(name = "create_at")
-    val createdAt: LocalDateTime? = null
+    var createdAt: LocalDateTime? = null,
 
     @LastModifiedDate
     @Column(name = "update_at")
-    val updateAt: LocalDateTime? = null
+    var updateAt: LocalDateTime? = null,
 
     @Column(name = "view_count")
-    val viewCount: Long = 0
+    var viewCount: Long = 0,
 
     @Column
-    val category : Long = 0
+    var category : Long = 0,
 
     @Column
-    val price: Long = 0
+    var price: Long = 0,
 
     // No-arguments constructor
-    constructor()
-}
+    )
 //@Entity
 //@Table(name = "market_board")
 //class MarketBoard (
