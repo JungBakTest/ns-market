@@ -1,6 +1,7 @@
 package com.market.controller
 
 import com.market.config.AuthUser
+import com.market.domain.entity.MarketBoard
 import com.market.model.BoardCreatedRequest
 import com.market.service.MarketBoardImageService
 import com.market.service.MarketBoardService
@@ -22,16 +23,12 @@ class MarketBoardController (
     fun marketBoardCreate(
         authUser: AuthUser,
         @RequestBody request: BoardCreatedRequest,
-        @RequestParam("files") files: List<MultipartFile>,
-    ): ResponseEntity<String> {
-        val uploadedFileName = marketBoardImageService.uploadImage(files)
-
-//        val message = "Files uploaded successfully: ${uploadedFileName.joinToString(", ")}"
-//        return ResponseEntity(message, HttpStatus.OK)
-
-        return ResponseEntity.ok(marketBoardService.BoardCreated(authUser.userId, request, uploadedFileName))
+//        @RequestParam("files") files: List<MultipartFile>,
+    ): MarketBoard {
+        return marketBoardService.BoardCreated(authUser.userId, request)
     }
-    @GetMapping("/test1")
+
+    @PostMapping("/imgUpload")
     fun test1(authUser: AuthUser): String{
         return "it's ${authUser.email}"
     }
