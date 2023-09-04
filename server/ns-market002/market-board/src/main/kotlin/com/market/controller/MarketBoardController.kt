@@ -2,6 +2,7 @@ package com.market.controller
 
 import com.market.config.AuthUser
 import com.market.domain.entity.MarketBoard
+import com.market.model.BoardCreateResponse
 import com.market.model.BoardCreatedRequest
 import com.market.service.MarketBoardImageService
 import com.market.service.MarketBoardService
@@ -22,13 +23,44 @@ class MarketBoardController (
     @PostMapping("/create")
     fun marketBoardCreate(
         authUser: AuthUser,
-        @RequestBody request: BoardCreatedRequest,
-//        @RequestParam("files") files: List<MultipartFile>,
-    ): MarketBoard {
-        return marketBoardService.BoardCreated(authUser.userId, request)
+//        @RequestBody request: BoardCreatedRequest,
+        @RequestParam("files") files: List<MultipartFile>,
+        @RequestParam("title") title: String,
+        @RequestParam("content") content: String,
+        @RequestParam("category") category: Long,
+        @RequestParam("price") price: Long,
+    ): BoardCreateResponse {
+        val boardCreatedRequest = BoardCreatedRequest(
+            title = title,
+            content = content,
+            category = category,
+            price = price,
+        )
+        return marketBoardService.boardCreated(authUser.userId, boardCreatedRequest,files)
     }
 
-    @PostMapping("/imgUpload")
+    @PostMapping("/edit")
+    fun marketBoardEdit(
+        authUser: AuthUser,
+        @RequestParam("files") files: List<MultipartFile>,
+        @RequestParam("title") title: String,
+        @RequestParam("content") content: String,
+        @RequestParam("category") category: Long,
+        @RequestParam("price") price: Long,
+        @RequestParam("boardid") boardId: Long,
+    ): BoardCreateResponse
+    {
+        val boardCreatedRequest = BoardCreatedRequest(
+            title = title,
+            content = content,
+            category = category,
+            price = price,
+        )
+        return marketBoardService.boardEdit(authUser.userId, boardId, boardCreatedRequest,files)
+    }
+
+
+    @PutMapping("/imgUpload")
     fun test1(authUser: AuthUser): String{
         return "it's ${authUser.email}"
     }
