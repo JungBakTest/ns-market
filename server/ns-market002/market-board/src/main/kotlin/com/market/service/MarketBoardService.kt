@@ -61,8 +61,14 @@ class MarketBoardService (
             marketBoard.category = 0
             marketBoard.price = boardCreatedRequest.price
 
-            val fileKeyList = mutableListOf<String>()
+            // 이미지 이전꺼 삭제
+            val imgsToDelete = imgStorageRepository.findByBoardId(marketBoard.boardId)
 
+            for (img in imgsToDelete){
+                imgStorageRepository.delete(img)
+            }
+            // 새로 생긴 이미지 생성
+            val fileKeyList = mutableListOf<String>()
             for (file in files) {
                 val imgKey = s3ImageService.uploadImage(file)
                 val imgStorage = ImgStorage(
@@ -74,10 +80,24 @@ class MarketBoardService (
                 imgStorageRepository.save(imgStorage)
             }
             marketBoardRepository.save(marketBoard)
+
             return BoardCreateResponse(marketBoard, fileKeyList)
         }
         else{
             throw MismatchedMarketBoardUserException()
         }
+    }
+
+    @Transactional
+    fun boardDelete(userId: Long, boardId: Long): String{
+        val marketBoard: MarketBoard = marketBoardRepository.findByIdOrNull(boardId) ?: throw MarketBoardIdNotFoundException()
+        val imgsToDelete = imgStorageRepository.findByBoardId(marketBoard.boardId)
+
+        for (img in imgsToDelete){
+            imgStorageRepository.delete(img)
+        }
+        marketBoardRepository.delete(marketBoard)
+
+        return "ok."
     }
 }

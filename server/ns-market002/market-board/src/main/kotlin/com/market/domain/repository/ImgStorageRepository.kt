@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 
 interface ImgStorageRepository : JpaRepository<ImgStorage, Long> {
+    fun findByBoardId(boardId: Long?): List<ImgStorage>
 }
