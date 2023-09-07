@@ -57,7 +57,9 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
 
-
+    //SpringDoc
+    implementation("org.springdoc:springdoc-openapi-ui:1.7.0")
+    implementation("org.springdoc:springdoc-openapi-webflux-ui:1.7.0")
     //s3 의존성
 //    implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 //    implementation("software.amazon.awssdk:s3:2.17.14")
