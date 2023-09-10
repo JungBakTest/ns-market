@@ -8,6 +8,7 @@ import com.market.exception.MarketBoardIdNotFoundException
 import com.market.exception.MismatchedMarketBoardUserException
 import com.market.model.BoardCreateResponse
 import com.market.model.BoardCreatedRequest
+import com.market.model.BoardViewResponse
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
@@ -62,7 +63,7 @@ class MarketBoardService (
             marketBoard.price = boardCreatedRequest.price
 
             // 이미지 이전꺼 삭제
-            val imgsToDelete = imgStorageRepository.findByBoardId(marketBoard.boardId)
+            val imgsToDelete = imgStorageRepository.findAllByBoardId(marketBoard.boardId)
 
             for (img in imgsToDelete){
                 imgStorageRepository.delete(img)
@@ -91,7 +92,7 @@ class MarketBoardService (
     @Transactional
     fun boardDelete(userId: Long, boardId: Long): String{
         val marketBoard: MarketBoard = marketBoardRepository.findByIdOrNull(boardId) ?: throw MarketBoardIdNotFoundException()
-        val imgsToDelete = imgStorageRepository.findByBoardId(marketBoard.boardId)
+        val imgsToDelete = imgStorageRepository.findAllByBoardId(marketBoard.boardId)
 
         for (img in imgsToDelete){
             imgStorageRepository.delete(img)
@@ -100,4 +101,27 @@ class MarketBoardService (
 
         return "ok."
     }
+
+    @Transactional
+    fun boardView(boardId: Long): BoardViewResponse{
+        val marketBoard = marketBoardRepository.findByIdOrNull(boardId) ?: throw MarketBoardIdNotFoundException()
+        val imgStorageList = imgStorageRepository.findAllByBoardId(boardId)
+        val imgUrlList: List<String> = imgStorageList.map { it.imgUrl }
+        return BoardViewResponse(marketBoard, imgUrlList)
+    }
+//    @Transactional
+//    fun getBoardList(): List<BoardViewResponse>{
+//        val limit = 10
+//        val boardList = marketBoardRepository.findAll().take(limit)
+//
+//        val responseList = mutableListOf<BoardViewResponse>()
+//        for(board in boardList){
+//            val boardImgList = imgStorageRepository.findAllByBoardId(board.boardId)
+//
+//            responseList.add(BoardViewResponse(board, boardImgList))
+//        }
+//
+//    }
+
+
 }

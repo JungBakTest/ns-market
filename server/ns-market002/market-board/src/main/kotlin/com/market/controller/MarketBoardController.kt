@@ -4,6 +4,7 @@ import com.market.config.AuthUser
 import com.market.domain.entity.MarketBoard
 import com.market.model.BoardCreateResponse
 import com.market.model.BoardCreatedRequest
+import com.market.model.BoardViewResponse
 import com.market.service.MarketBoardImageService
 import com.market.service.MarketBoardService
 import io.swagger.v3.oas.annotations.Operation
@@ -76,6 +77,22 @@ class MarketBoardController (
     ): String{
         return marketBoardService.boardDelete(authUser.userId, boardId)
     }
+
+    @GetMapping("/view/{boardId}")
+    @Operation(summary = "market Board view 하는 기능입니다.")
+    fun view(
+        @PathVariable boardId: Long,
+    ): BoardViewResponse{
+        return marketBoardService.boardView(boardId)
+    }
+
+//    @GetMapping("/boards/list")
+//    @Operation(summary = "market Board Edit 하는 기능입니다.",
+//        description = "RequestParam로  files, title, content, category, price, boardid를 받습니다.")
+//    fun getBoardList(): List<BoardViewResponse>{
+//        return marketBoardService.getBoardList()
+//    }
+
 
     @PutMapping("/imgUpload")
     fun test1(authUser: AuthUser): String{

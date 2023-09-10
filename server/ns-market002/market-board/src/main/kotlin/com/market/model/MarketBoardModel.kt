@@ -27,3 +27,17 @@ data class BoardCreateResponse(
 }
 
 
+data class BoardViewResponse(
+    val userId: Long,
+    val boardId: Long?,
+    val title: String,
+    val content: String,
+    val viewCount: Long,
+    val category: Long,
+    val price: Long,
+    val imgStorages : List<String>,
+){
+    constructor(marketBoard: MarketBoard, fileUrlList: List<String>) :
+            this(marketBoard.userId, marketBoard.boardId, marketBoard.title, marketBoard.content,
+                marketBoard.viewCount, marketBoard.category, marketBoard.price, fileUrlList )
+}
