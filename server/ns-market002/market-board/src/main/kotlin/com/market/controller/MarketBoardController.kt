@@ -1,9 +1,12 @@
 package com.market.controller
 
 import com.market.config.AuthUser
+import com.market.domain.entity.ImgStorage
 import com.market.domain.entity.MarketBoard
+import com.market.domain.repository.ImgStorageRepository
 import com.market.model.BoardCreateResponse
 import com.market.model.BoardCreatedRequest
+import com.market.model.BoardViewPost
 import com.market.model.BoardViewResponse
 import com.market.service.MarketBoardImageService
 import com.market.service.MarketBoardService
@@ -86,17 +89,11 @@ class MarketBoardController (
         return marketBoardService.boardView(boardId)
     }
 
-//    @GetMapping("/boards/list")
-//    @Operation(summary = "market Board Edit 하는 기능입니다.",
-//        description = "RequestParam로  files, title, content, category, price, boardid를 받습니다.")
-//    fun getBoardList(): List<BoardViewResponse>{
-//        return marketBoardService.getBoardList()
-//    }
-
-
-    @PutMapping("/imgUpload")
-    fun test1(authUser: AuthUser): String{
-        return "it's ${authUser.email}"
+    @GetMapping("/view/list")
+    @Operation(summary = "market Board view List 하여 보내주는 기능입니다.",
+        description = "RequestParam로  files, title, content, category, price, boardid를 받습니다.")
+    fun viewList(): List<BoardViewPost> {
+        return marketBoardService.getBoardViewList()
     }
 
 }

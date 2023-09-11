@@ -8,11 +8,13 @@ import com.market.exception.MarketBoardIdNotFoundException
 import com.market.exception.MismatchedMarketBoardUserException
 import com.market.model.BoardCreateResponse
 import com.market.model.BoardCreatedRequest
+import com.market.model.BoardViewPost
 import com.market.model.BoardViewResponse
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
+import java.util.*
 import javax.transaction.Transactional
 
 
@@ -39,7 +41,7 @@ class MarketBoardService (
             for (file in files){
                 val imgKey = s3ImageService.uploadImage(file)
                 val imgStorage = ImgStorage(
-                    imgUrl = imgKey,
+                    imgKey = imgKey,
                     userId = userId,
                     boardId = marketBoard.boardId,
                 )
@@ -73,7 +75,7 @@ class MarketBoardService (
             for (file in files) {
                 val imgKey = s3ImageService.uploadImage(file)
                 val imgStorage = ImgStorage(
-                    imgUrl = imgKey,
+                    imgKey = imgKey,
                     userId = userId,
                     boardId = marketBoard.boardId,
                 )
@@ -106,22 +108,33 @@ class MarketBoardService (
     fun boardView(boardId: Long): BoardViewResponse{
         val marketBoard = marketBoardRepository.findByIdOrNull(boardId) ?: throw MarketBoardIdNotFoundException()
         val imgStorageList = imgStorageRepository.findAllByBoardId(boardId)
-        val imgUrlList: List<String> = imgStorageList.map { it.imgUrl }
+        val imgUrlList: List<String> = imgStorageList.map { it.imgKey }
         return BoardViewResponse(marketBoard, imgUrlList)
     }
-//    @Transactional
-//    fun getBoardList(): List<BoardViewResponse>{
-//        val limit = 10
-//        val boardList = marketBoardRepository.findAll().take(limit)
-//
-//        val responseList = mutableListOf<BoardViewResponse>()
-//        for(board in boardList){
-//            val boardImgList = imgStorageRepository.findAllByBoardId(board.boardId)
-//
-//            responseList.add(BoardViewResponse(board, boardImgList))
-//        }
-//
-//    }
 
+//List<BoardViewPost>
+    @Transactional
+    fun getBoardViewList(): List<BoardViewPost> {
+    val limit = 10
+    val boardList = marketBoardRepository.findAll().take(limit)
+
+    val responseList: MutableList<BoardViewPost> = mutableListOf()
+    for (board in boardList) {
+//            val imgStorage = imgStorageRepository.findFirstByBoardId(board.boardId)
+//            responseList.add(BoardViewPost(board, mainImgUrl = imgStorage.imgUrl))
+        val imgOptional: Optional<ImgStorage> = imgStorageRepository.findFirstByBoardId(board.boardId)
+
+        if (imgOptional.isPresent) {
+            val imgStorage: ImgStorage = imgOptional.get()
+            val imgUrl = s3ImageService.getImageUrl(imgStorage.imgKey)
+            responseList.add(BoardViewPost(board, imgUrl))
+        }
+        else {
+            responseList.add(BoardViewPost(board, ""))
+        }
+        }
+
+    return responseList
+    }
 
 }

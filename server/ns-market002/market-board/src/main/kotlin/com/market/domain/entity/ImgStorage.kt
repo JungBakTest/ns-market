@@ -15,7 +15,7 @@ class ImgStorage(
     val imgId: Long? = null,
 
     @Column(name = "img_url")
-    val imgUrl: String = "",
+    val imgKey: String = "",
 
     @Column(name = "user_id")
     val userId: Long? = null,

@@ -41,3 +41,17 @@ data class BoardViewResponse(
             this(marketBoard.userId, marketBoard.boardId, marketBoard.title, marketBoard.content,
                 marketBoard.viewCount, marketBoard.category, marketBoard.price, fileUrlList )
 }
+
+
+data class BoardViewPost(
+    val userId: Long,
+    val boardId: Long?,
+    val title: String,
+    val viewCount: Long,
+    val price: Long,
+    val mainImgUrl: String,
+){
+    constructor(marketBoard: MarketBoard, mainImgUrl: String) :
+            this(marketBoard.userId, marketBoard.boardId, marketBoard.title,
+                marketBoard.viewCount, marketBoard.price, mainImgUrl)
+}
