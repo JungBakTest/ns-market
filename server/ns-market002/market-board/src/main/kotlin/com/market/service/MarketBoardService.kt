@@ -108,7 +108,7 @@ class MarketBoardService (
     fun boardView(boardId: Long): BoardViewResponse{
         val marketBoard = marketBoardRepository.findByIdOrNull(boardId) ?: throw MarketBoardIdNotFoundException()
         val imgStorageList = imgStorageRepository.findAllByBoardId(boardId)
-        val imgUrlList: List<String> = imgStorageList.map { it.imgKey }
+        val imgUrlList: List<String> = imgStorageList.map { s3ImageService.getImageUrl(it.imgKey) }
         return BoardViewResponse(marketBoard, imgUrlList)
     }
 
