@@ -38,6 +38,8 @@ class MarketBoardService (
             )
             val fileKeyList = mutableListOf<String>()
 
+            marketBoardRepository.save(marketBoard)
+
             for (file in files){
                 val imgKey = s3ImageService.uploadImage(file)
                 val imgStorage = ImgStorage(
@@ -48,7 +50,6 @@ class MarketBoardService (
                 fileKeyList.add(imgKey)
                 imgStorageRepository.save(imgStorage)
             }
-            marketBoardRepository.save(marketBoard)
 
             BoardCreateResponse(marketBoard, fileKeyList)
 
