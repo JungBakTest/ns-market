@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.io.IOException
+import java.util.*
 
 
 @Service
@@ -16,7 +17,7 @@ class S3ImageService @Autowired constructor(
 ) {
 
     fun uploadImage(file: MultipartFile): String {
-        val key = "${folderName}/${generateKey(file.originalFilename)}"
+        val key = "${folderName}/${UUID.randomUUID()}${generateKey(file.originalFilename)}"
         try {
             amazonS3.putObject(bucketName, key, file.inputStream, null)
             return key
