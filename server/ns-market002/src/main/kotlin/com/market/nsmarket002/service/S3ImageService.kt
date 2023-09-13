@@ -15,7 +15,7 @@ class S3ImageService @Autowired constructor(
     @Value("\${spring.aws.s3.folder-name}") private val folderName: String,
 ) {
 
-    fun uploadImage(file: MultipartFile): String {
+    suspend fun uploadImage(file: MultipartFile): String {
         val key = "${folderName}/${UUID.randomUUID()}${generateKey(file.originalFilename)}"
         try {
             amazonS3.putObject(bucketName, key, file.inputStream, null)
@@ -25,11 +25,11 @@ class S3ImageService @Autowired constructor(
         }
     }
 
-    fun generateKey(originalFilename: String?): String {
+    suspend fun generateKey(originalFilename: String?): String {
         return originalFilename ?: "image-${System.currentTimeMillis()}"
     }
 
-    fun getImageUrl(imageKey: String): String {
+    suspend fun getImageUrl(imageKey: String): String {
         return amazonS3.getUrl(bucketName, imageKey).toString()
     }
 }

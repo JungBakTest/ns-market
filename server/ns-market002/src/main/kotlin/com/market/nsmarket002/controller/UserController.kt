@@ -1,6 +1,7 @@
 package com.market.nsmarket002.controller
 
 import com.market.nsmarket002.model.*
+import com.market.nsmarket002.service.S3ImageService
 import com.market.nsmarket002.service.UserService
 import io.swagger.v3.oas.annotations.Hidden
 import io.swagger.v3.oas.annotations.Operation
@@ -12,15 +13,29 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.codec.multipart.FilePart
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
+import reactor.core.publisher.Mono
 import java.io.File
+import java.io.IOException
 
 @RestController
 @RequestMapping("/api/users")
 @Tag(name = "User Service API", description = "User Service Api입니다.")
 class UserController (
     private val userService: UserService,
+    private val s3ImgService: S3ImageService,
 ){
-//    @Parameter(name = "SignUpRequest", description = "2번 반복할 문자열")
+
+    @PostMapping("/test", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    suspend fun test(
+        @RequestPart("files") files: MultipartFile,
+        @AuthToken token: String,
+    ): String
+    {
+        return files.name
+    }
+
+    //    @Parameter(name = "SignUpRequest", description = "2번 반복할 문자열")
     @PostMapping("/signup")
     @Operation(summary = "SignUp(회원가입) 기능입니다.", description = "회원가입 데이터를 가져와서 저장, 잘못된 데이터이면 오류를 반환합니다.")
     suspend fun signup(@RequestBody request: SignUpRequest){
@@ -60,26 +75,13 @@ class UserController (
         @PathVariable id:Long,
         @ModelAttribute request: UserEditRequest,
         @AuthToken token: String,
-        @RequestPart("profileUrl") filePart: FilePart,
+        @RequestPart("profileUrl") file: MultipartFile,
     ){
-        val orgFIlename = filePart.filename()
-        var filename: String? = null
-        if(orgFIlename.isNotEmpty()){
-            val ext = orgFIlename.substring(orgFIlename.lastIndexOf(".") +1) //확장자 구하는것
-            filename = "${id}.${ext}"
-
-
-            //resources/images/1.jpg 예시
-            val file = File(ClassPathResource("/images").file , filename)
-            filePart.transferTo(file).awaitSingleOrNull()
-
-        }
-        userService.edit(token, request.username, filename)
+        val fileKey = s3ImgService.uploadImage(file)
+        val fileUrl = s3ImgService.getImageUrl(fileKey)
+        userService.edit(token, request.username, fileUrl)
     }
 
-    @GetMapping("/test1")
-    suspend fun test1() : String{
-        return "it's ok"
-    }
+
 
 }
