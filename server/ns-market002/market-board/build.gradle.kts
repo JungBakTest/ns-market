@@ -26,14 +26,15 @@ dependencies {
     implementation("com.auth0:java-jwt:3.19.2")
     // Kotlin 로깅
     implementation("io.github.microutils:kotlin-logging:1.12.5")
+
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
 
     // Kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     //SpringDoc
     implementation("org.springdoc:springdoc-openapi-ui:1.7.0")
