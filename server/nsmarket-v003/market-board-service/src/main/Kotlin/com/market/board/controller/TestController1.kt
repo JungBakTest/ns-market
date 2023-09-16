@@ -1,7 +1,7 @@
-package com.market.controller
+package com.market.board.controller
 
 import com.market.domain.entity.MarketBoard
-import com.market.service.TestService
+import com.market.board.service.TestService
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
