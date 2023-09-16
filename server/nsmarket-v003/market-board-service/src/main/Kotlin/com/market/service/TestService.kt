@@ -2,25 +2,14 @@ package com.market.service
 
 import com.market.domain.entity.MarketBoard
 import com.market.domain.repository.MarketBoardRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import java.util.*
-import javax.transaction.Transactional
+import org.springframework.web.bind.annotation.GetMapping
 
 
 @Service
 class TestService (
-    private val marketBoardRepository: MarketBoardRepository,
+    private val boardRepository: MarketBoardRepository,
 ){
-
-    @Transactional
-    fun test1(): MarketBoard{
-        val optionalMarketBoard: Optional<MarketBoard> =  marketBoardRepository.findById(2)
-        if(optionalMarketBoard.isPresent){
-            val marketBoard: MarketBoard = optionalMarketBoard.get()
-            return marketBoard
-        }
-        else {
-            return MarketBoard()
-        }
-    }
+    fun test(): MarketBoard = boardRepository.findByIdOrNull(2) ?: throw IllegalArgumentException("board 데이터가 없음")
 }

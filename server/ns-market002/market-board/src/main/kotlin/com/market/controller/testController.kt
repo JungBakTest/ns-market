@@ -3,9 +3,9 @@ package com.market.controller
 import com.market.domain.entity.Category
 import com.market.domain.repository.CategoryRepository
 import com.market.domain.repository.MarketBoardRepository
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import io.swagger.v3.oas.annotations.Operation
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 
 
 @RestController
@@ -25,5 +25,13 @@ class testController (
         categoryRepository.save(livestockProduct)
         categoryRepository.save(aquaticProduct)
         return farmProduct
+    }
+
+    @PostMapping("/test")
+    suspend fun test(
+        @RequestPart("files") files: MultipartFile,
+    ): String
+    {
+        return files.name
     }
 }
