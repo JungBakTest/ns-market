@@ -61,8 +61,8 @@ subprojects {
 		implementation("org.springframework.boot:spring-boot-starter:2.5.4")
 
 		//db
-		implementation("dev.miku:r2dbc-mysql:0.8.1.RELEASE")
-		implementation("io.r2dbc:r2dbc-pool")
+//		implementation("dev.miku:r2dbc-mysql:0.8.1.RELEASE")
+//		implementation("io.r2dbc:r2dbc-pool")
 		runtimeOnly("com.mysql:mysql-connector-j")
 		implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 		implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
