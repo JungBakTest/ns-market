@@ -18,6 +18,10 @@ import java.util.*
 import javax.transaction.Transactional
 
 
+
+
+
+
 @Service
 class MarketBoardService (
     private val marketBoardRepository: MarketBoardRepository,
@@ -124,11 +128,12 @@ class MarketBoardService (
 //            val imgStorage = imgStorageRepository.findFirstByBoardId(board.boardId)
 //            responseList.add(BoardViewPost(board, mainImgUrl = imgStorage.imgUrl))
         val imgOptional: Optional<ImgStorage> = imgStorageRepository.findFirstByBoardId(board.boardId)
-
+        val userImgUrl =
         if (imgOptional.isPresent) {
             val imgStorage: ImgStorage = imgOptional.get()
-            val imgUrl = s3ImageService.getImageUrl(imgStorage.imgKey)
-            responseList.add(BoardViewPost(board, imgUrl))
+            val mainImgUrl = s3ImageService.getImageUrl(imgStorage.imgKey)
+
+            responseList.add(BoardViewPost(board, mainImgUrl))
         }
         else {
             responseList.add(BoardViewPost(board, ""))

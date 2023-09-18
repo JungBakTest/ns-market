@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("kapt") version "1.6.21"
+
 }
 
 group = "com.market"
@@ -20,6 +21,7 @@ repositories {
 }
 
 dependencies {
+	implementation(kotlin("stdlib"))
 	// JWT 인증
 	implementation("com.auth0:java-jwt:3.19.2")
 
@@ -54,6 +56,10 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
+
+	//aws s3
+	implementation("com.amazonaws:aws-java-sdk-s3:1.11.1015")
+	implementation(project(":market-board"))
 }
 
 tasks.withType<KotlinCompile> {
