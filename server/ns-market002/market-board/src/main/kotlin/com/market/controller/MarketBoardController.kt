@@ -96,4 +96,16 @@ class MarketBoardController (
         return marketBoardService.getBoardViewList()
     }
 
+    @GetMapping("/view/profile/{userId}")
+    @Operation(summary = "market Board view List 하여 보내주는 기능입니다.",
+        description = "RequestParam로  files, title, content, category, price, boardid를 받습니다.")
+    fun viewList(
+        @PathVariable userId: Long,
+
+    ){
+
+
+    }
+
+
 }
